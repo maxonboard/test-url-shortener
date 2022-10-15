@@ -6,21 +6,22 @@ const defaultOptions = {} as const;
 export type GetMessagesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetMessagesQuery = { __typename?: 'Query', messages: Array<{ __typename?: 'MessageDto', id?: number | null, message: string }> };
+export type GetMessagesQuery = { __typename?: 'Query', urls: Array<{ __typename?: 'UrlDto', id?: number | null, url: string, shortUrl?: string | null }> };
 
 export type AddMessageMutationVariables = Types.Exact<{
-  message: Types.Scalars['String'];
+  url: Types.Scalars['String'];
 }>;
 
 
-export type AddMessageMutation = { __typename?: 'Mutation', message: { __typename?: 'MessageDto', id?: number | null, message: string } };
+export type AddMessageMutation = { __typename?: 'Mutation', url: { __typename?: 'UrlDto', id?: number | null, url: string } };
 
 
 export const GetMessagesDocument = gql`
     query getMessages {
-  messages {
+  urls {
     id
-    message
+    url
+    shortUrl
   }
 }
     `;
@@ -36,10 +37,10 @@ export type GetMessagesQueryHookResult = ReturnType<typeof useGetMessagesQuery>;
 export type GetMessagesLazyQueryHookResult = ReturnType<typeof useGetMessagesLazyQuery>;
 export type GetMessagesQueryResult = Apollo.QueryResult<GetMessagesQuery, GetMessagesQueryVariables>;
 export const AddMessageDocument = gql`
-    mutation addMessage($message: String!) {
-  message(message: $message) {
+    mutation addMessage($url: String!) {
+  url(url: $url) {
     id
-    message
+    url
   }
 }
     `;

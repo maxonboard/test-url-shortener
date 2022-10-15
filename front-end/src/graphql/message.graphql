@@ -1,13 +1,14 @@
 query getMessages{
-    messages {
+    urls {
         id
-        message
+        url
+        shortUrl
     }
 }
 
-mutation addMessage($message: String!) {
-    message(message: $message) {
+mutation addMessage($url: String!) {
+    url(url: $url) {
         id
-        message
+        url
     }
 }

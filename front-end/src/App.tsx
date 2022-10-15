@@ -1,9 +1,9 @@
 import React, { FormEvent, useState } from 'react';
-import logo from './logo.svg';
 import {
   useAddMessageMutation,
   useGetMessagesQuery,
 } from './graphql/message.generated';
+import logo from './logo.svg';
 
 function App() {
   const [newMessage, setNewMessage] = useState({ value: '' });
@@ -17,11 +17,13 @@ function App() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newMessage.value) {
-      await addMessage({ variables: { message: newMessage.value } });
+      await addMessage({ variables: { url: newMessage.value } });
       setNewMessage({ value: '' });
       await refetch();
     }
   };
+
+  // TODO Use READ-ONLY/WRITE-ONLY DTO to make shortUrl not optional on READ-ONLY
 
   return (
     <div className="bg-main-blue min-h-screen">
@@ -39,10 +41,15 @@ function App() {
           <div
             className="font-semibold text-xl"
           >
-            Add a few messages to ensure that everything is working correctly :
+            Your shortened URLs :
           </div>
-          {data?.messages.map((message) => (
-            <div key={message.id}>{message.message}</div>
+          {data?.urls.map((url) => (
+            <div key={url.id}>
+              <a href={url.url} rel="noreferrer" target="_blank">{url.url}</a>
+              :
+              {' '}
+              <a href={url.shortUrl ?? '#'} rel="noreferrer" target="_blank">{url.shortUrl}</a>
+            </div>
           ))}
           <div className="font-semibold">
             <form
@@ -51,7 +58,7 @@ function App() {
             >
               <input
                 data-cy="messageInput"
-                placeholder="Your message"
+                placeholder="Your so much too long URL ..."
                 className="p-3 w-96 border-2 rounded-full border-main-blue"
                 value={newMessage.value}
                 onChange={onChange}
@@ -61,7 +68,7 @@ function App() {
                 type="submit"
                 className="p-3 bg-main-blue text-white rounded-full"
               >
-                Add message
+                Get your shortened URL
               </button>
             </form>
           </div>

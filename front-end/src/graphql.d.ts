@@ -12,23 +12,24 @@ export type Scalars = {
   Float: number;
 };
 
-export type MessageDto = {
-  __typename?: 'MessageDto';
-  id?: Maybe<Scalars['Int']>;
-  message: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  message: MessageDto;
+  url: UrlDto;
 };
 
 
-export type MutationMessageArgs = {
-  message: Scalars['String'];
+export type MutationUrlArgs = {
+  url: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  messages: Array<MessageDto>;
+  urls: Array<UrlDto>;
+};
+
+export type UrlDto = {
+  __typename?: 'UrlDto';
+  id?: Maybe<Scalars['Int']>;
+  shortUrl?: Maybe<Scalars['String']>;
+  url: Scalars['String'];
 };
