@@ -1,10 +1,13 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class MessageDto {
+export class UrlDto {
   @Field((_type) => Int, { nullable: true })
   id?: number;
 
   @Field()
-  message: string;
+  url: string;
+
+  @Field((_type) => String, { nullable: true })
+  shortUrl: string;
 }

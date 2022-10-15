@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Message {
+export class Url {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  message: string;
+  url: string;
 }
